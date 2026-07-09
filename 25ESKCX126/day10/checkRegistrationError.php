@@ -8,6 +8,7 @@ $email =mysqli_real_escape_string($conn, $_POST["email"]);
 $password =mysqli_real_escape_string($conn, $_POST["password"]);
 $phoneno=mysqli_real_escape_string($conn, $_POST["phone_number"]);
 $confirmpassword = mysqli_real_escape_string($conn,$_POST["cpassword"]);
+$hashedpassword = password_hash($password , PASSWORD_DEFAULT);
 
 if (strlen($password) < 8) {
     echo "Password must be at least 8 characters long.";
@@ -29,7 +30,7 @@ elseif (!preg_match("/[!@#$%^&*]/", $password)) {
 }
     else{
     //insert
-    $insertquery ="INSERT INTO user (name,email,phone_number,password) VALUES ('$name','$email','$phoneno','$password')";
+    $insertquery ="INSERT INTO user (name,email,phone_number,password) VALUES ('$name','$email','$phoneno','$hashedpassword')";
 
     $result = mysqli_query($conn,$insertquery);
 
